@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ABC Laboratories Online Appointment</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<script>
+    // Check if the user is logged in
+    function checkLogin() {
+        var username = sessionStorage.getItem('userName');
+        if (!username) {
+            window.location.href = '/.html'; // Redirect to login page
+        }
+    }
+</script>
+
+
+
+<body onload="checkLogin()">
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__close">+</div>
+       
+        <div class="offcanvas__logo">
+            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+       
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-2">
+                    <div class="header__logo">
+                        <a class="fw-bold text-dark ml-5" style="font-weight: bold;" href="./index.html">ABC Laboratories Online Appointment</a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-7">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li class="active"><a href="./shop.html">Appointment</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                </div>
+            </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>Book Appointment</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="row">
+            </div>
+            <div class="checkout__form">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h5>Appointment detail</h5>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Customer Name <span>*</span></p>
+                                    <input type="text" id="input1" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Customer Email <span>*</span></p>
+                                    <input type="text" id="input6" >
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="checkout__form__input">
+                                    <p>Consultant Name <span>*</span></p>
+                                    <input type="text" id="input2" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="checkout__form__input">
+                                    <p>Book Date <span>*</span></p>
+                                    <input type="date" required  id="input3">
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Time <span>*</span></p>
+                                    <input type="text" placeholder="Time" required  id="input4"> 
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p> Contact Number<span>*</span></p>
+                                    <input type="text" required  id="input5" placeholder="Contact Number" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="">
+                                <button onclick="save()" class="site-btn">Book Appointment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Checkout Section End -->
+
+
+        <script>
+            window.onload = function () {
+   var urlParams = new URLSearchParams(window.location.search);
+   var c_name = urlParams.get('name');
+
+   if (c_name) {
+     // Store the name in session storage
+     sessionStorage.setItem('name', c_name);
+     console.log(c_name);
+
+     // Populate the input field with the c_name value
+     var nameInput = document.getElementById('input2');
+     if (nameInput) {
+         nameInput.value = c_name;
+     }
+   }
+
+   const storedUserName = sessionStorage.getItem("userName");
+
+// Check if the stored username exists
+if (storedUserName) {
+   // Set the stored username as the value of the input field
+   document.getElementById("input1").value = storedUserName;
+}
+}
+
+
+const dateInput = document.getElementById('input3');
+
+// Function to set the minimum date to today's date
+function setMinDate() {
+    const today = new Date();
+    const day = today.getDate().toString().padStart(2, '0');
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const year = today.getFullYear();
+    const minDate = `${year}-${month}-${day}`;
+    dateInput.setAttribute('min', minDate);
+}
+
+// Call the function to set the minimum date initially
+setMinDate();
+
+// Add an event listener to update the minimum date if the input is focused
+dateInput.addEventListener('focus', setMinDate);
+
+
+
+function save() {
+    let u_name = $("#input1").val();
+    let c_name = $("#input2").val();
+    let book_date = $("#input3").val();
+    let time = $("#input4").val();
+    let contact = $("#input5").val();
+    let mail = $("#input6").val();
+
+    $.ajax({
+        method: "POST",
+        contentType: "application/json",
+        url: "http://localhost:8081/api/v1/appoinment/saveappoinment",
+        async: true,
+        data: JSON.stringify({
+            u_name: u_name,
+            c_name: c_name,
+            book_date: book_date,
+            time: time,
+            contact: contact,
+            mail:mail,
+        }),
+        success: function (data) {
+            alert("Appointment Added Successfully");
+            window.location.href = '?refresh=true';
+        },
+        error: function (xhr, exception) {
+            alert("Error");
+        },
+    });
+}
+        </script>
+
+
+
+        <!-- Footer Section Begin -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-7">
+                        <div class="footer__about">
+                            <div class="footer__logo">
+                                <a class="fw-bold text-dark ml-5" style="font-weight: bold" href="./index.html">ABC Laboratories Online
+                                    Appointment</a>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                            cilisis.</p>
+                            <div class="footer__payment">
+                                <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
+                                <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
+                                <a href="#"><img src="img/payment/payment-3.png" alt=""></a>
+                                <a href="#"><img src="img/payment/payment-4.png" alt=""></a>
+                                <a href="#"><img src="img/payment/payment-5.png" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-5">
+                        <div class="footer__widget">
+                            <h6>Quick links</h6>
+                            <ul>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Blogs</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4">
+                        <div class="footer__widget">
+                            <h6>Account</h6>
+                            <ul>
+                                <li><a href="#">My Account</a></li>
+                                <li><a href="#">Orders Tracking</a></li>
+                                <li><a href="#">Checkout</a></li>
+                                <li><a href="#">Wishlist</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-8 col-sm-8">
+                        <div class="footer__newslatter">
+                            <h6>NEWSLETTER</h6>
+                            <form action="#">
+                                <input type="text" placeholder="Email">
+                                <button type="submit" class="site-btn">Subscribe</button>
+                            </form>
+                            <div class="footer__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-youtube-play"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <div class="footer__copyright__text">
+                            <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                        </div>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer Section End -->
+
+        <!-- Search Begin -->
+        <div class="search-model">
+            <div class="h-100 d-flex align-items-center justify-content-center">
+                <div class="search-close-switch">+</div>
+                <form class="search-model-form">
+                    <input type="text" id="search-input" placeholder="Search here.....">
+                </form>
+            </div>
+        </div>
+        <!-- Search End -->
+
+        <!-- Js Plugins -->
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/mixitup.min.js"></script>
+        <script src="js/jquery.countdown.min.js"></script>
+        <script src="js/jquery.slicknav.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.nicescroll.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+
+    </html>
