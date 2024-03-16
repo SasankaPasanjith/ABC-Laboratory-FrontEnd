@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Ashion Template" />
+    <meta name="keywords" content="Ashion, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title> ABC LaboratoriesOnline Appointment</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__close">+</div>
+        <div class="offcanvas__logo">
+            <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-3 col-lg-2">
+                    <div class="header__logo">
+                        <a class="fw-bold text-dark ml-5" style="font-weight: bold" href="./index.html"> ABC Laboratories Online
+                            Appointment</a>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-7">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="./index.html">Home</a></li>
+                            <li class="active"><a href="./shop.html">Appointment</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__right"></div>
+                </div>
+            </div>
+            <div class="canvas__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Shop Section Begin -->
+    <section class="shop spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="shop__sidebar">
+                        <div class="sidebar__categories">
+                            <div class="section-title">
+                                <h4>Filter</h4>
+                            </div>
+                            <div class="categories__accordion">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="sidebar__filter mt-5">
+                                        <div class="filter-range-wrap">
+                                            <label for="" style="font-weight: bold;">Start Time :</label>
+                                            <input type="number" id="startTimeFilter" placeholder="Start Time" />
+                                        </div>
+                                        <br /><br />
+
+                                        <div class="filter-range-wrap">
+                                            <label for="" style="font-weight: bold;">End Time :</label>
+                                            <input type="number" id="endTimeFilter" placeholder="End Time" />
+                                            <!-- <a href="#" id="filterButton">Filter</a> -->
+                                        </div>
+                                        <br /><br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9">
+                    <div class="row" id="productList"></div>
+                    <!-- Product items will be dynamically added here -->
+                </div>
+
+                <script>
+                    const productList = document.getElementById("productList");
+                    const startTimeFilter = document.getElementById("startTimeFilter");
+                    const endTimeFilter = document.getElementById("endTimeFilter");
+
+                    // Function to fetch and display products
+                    const fetchProducts = () => {
+                        // Fetch product data from the API
+                        fetch("http://localhost:8081/api/v1/consult/getconsult")
+                            .then((response) => response.json())
+                            .then((products) => {
+                                // Clear the existing product list
+                                productList.innerHTML = "";
+
+                                // Loop through products and generate HTML content
+                                products.forEach((product) => {
+                                    const productItem = document.createElement("div");
+                                    productItem.className = "col-lg-4 col-md-6";
+                                    productItem.innerHTML = `
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg">
+                            <img src="img/consult.png" alt="">
+                            <ul class="product__hover">
+                            </ul>
+                        </div>
+                        <div class="product__item__text" style="margin-top:-95px;">
+                            <h6><a href="${getUserLink(product)}" style="text-align: center; font-weight: bold; text-transform: capitalize;">${product.name}</a></h6>
+                            <div style="text-align: center; font-weight: bold; margin-bottom: -50px;">
+                                <p style="text-align: center; font-weight: bold; color: rgb(82, 78, 78);">Available Time: ${product.start_time} -  ${product.end_time}</p>&nbsp;
+                            </div>
+                            <a href="${getUserLink(product)}"><button class="btn btn-outline-primary mt-4">Book Appointment</button></a>
+                        </div>
+                    </div>
+                `;
+
+                                    productList.appendChild(productItem);
+                                });
+                            })
+                            .catch((error) => {
+                                console.error("Error fetching product data:", error);
+                            });
+                    };
+
+
+                    // Function to fetch and display filtered products
+                    const fetchFilteredProducts = (startTime) => {
+                        // Fetch filtered product data from the API
+                        fetch(`http://localhost:8081/api/v1/consult/filter-by-start-time`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                start_time: startTime,
+
+                            }),
+                        })
+                            .then((response) => response.json())
+                            .then((filteredProducts) => {
+                                // Clear the existing product list
+                                productList.innerHTML = "";
+                                if (filteredProducts.length === 0) {
+                                    // Create an error message element
+                                    const errorMessage = document.createElement("div");
+                                    errorMessage.className = "col-lg-9 text-danger text-bold";
+                                    errorMessage.textContent = "Consultant Not Found.";
+
+                                    productList.appendChild(errorMessage);
+                                } else {
+                                    // Loop through filtered products and generate HTML content
+                                    filteredProducts.forEach((product) => {
+                                        const productItem = document.createElement("div");
+                                        productItem.className = "col-lg-4 col-md-6";
+                                        productItem.innerHTML = `
+                                    <div class="product__item">
+                                            <div class="product__item__pic set-bg">
+                                                <img src="img/consult.png" alt="">
+                                                <ul class="product__hover">
+                                                </ul>
+                                            </div>
+                                            <div class="product__item__text" style="margin-top:-95px;">
+                                <h6><a href="${getUserLink(product)}" style="text-align: center; font-weight: bold; text-transform: capitalize;">${product.name}</a></h6>
+                                <div style="text-align: center; font-weight: bold; margin-bottom: -50px;">
+                                    <p style="text-align: center; font-weight: bold; color: rgb(82, 78, 78);">Available Time: ${product.start_time} -  ${product.end_time}</p>&nbsp;
+                    </div>
+                    <a href="${getUserLink(product)}"><button class="btn btn-outline-primary mt-4">Book Appointment</button></a>
+                                        </div>
+                                    `;
+
+                                        productList.appendChild(productItem);
+                                    });
+                                }
+                            })
+                            .catch((error) => {
+                                console.error("Error fetching filtered product data:", error);
+                            });
+                    };
+
+
+                    // Function to fetch and display filtered products
+                    const fetchFilteredProductsend = (endTime) => {
+                        // Fetch filtered product data from the API
+                        fetch(`http://localhost:8081/api/v1/consult/filter-by-end-time`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                end_time: endTime,
+
+                            }),
+                        })
+                            .then((response) => response.json())
+                            .then((filteredProducts) => {
+                                // Clear the existing product list
+                                productList.innerHTML = "";
+                                if (filteredProducts.length === 0) {
+                                    // Create an error message element
+                                    const errorMessage = document.createElement("div");
+                                    errorMessage.className = "col-lg-9 text-danger text-bold";
+                                    errorMessage.textContent = "Consultant Not Found.";
+
+                                    productList.appendChild(errorMessage);
+                                } else {
+                                    // Loop through filtered products and generate HTML content
+                                    filteredProducts.forEach((product) => {
+                                        const productItem = document.createElement("div");
+                                        productItem.className = "col-lg-4 col-md-6";
+                                        productItem.innerHTML = `
+                                    <div class="product__item">
+                                            <div class="product__item__pic set-bg">
+                                                <img src="img/consult.png" alt="">
+                                                <ul class="product__hover">
+                                                </ul>
+                                            </div>
+                                            <div class="product__item__text" style="margin-top:-95px;">
+                                <h6><a href="${getUserLink(product)}" style="text-align: center; font-weight: bold; text-transform: capitalize;">${product.name}</a></h6>
+                                <div style="text-align: center; font-weight: bold; margin-bottom: -50px;">
+                                    <p style="text-align: center; font-weight: bold; color: rgb(82, 78, 78);">Available Time: ${product.start_time} -  ${product.end_time}</p>&nbsp;
+                    </div>
+                    <a href="${getUserLink(product)}"><button class="btn btn-outline-primary mt-4">Book Appointment</button></a>
+                                        </div>
+                                    `;
+
+                                        productList.appendChild(productItem);
+                                    });
+                                }
+                            })
+                            .catch((error) => {
+                                console.error("Error fetching filtered product data:", error);
+                            });
+                    };
+
+
+
+
+                    // Event listener for input changes in the filter fields
+                    startTimeFilter.addEventListener("input", () => {
+                        const startTime = startTimeFilter.value;
+                        const endTime = endTimeFilter.value;
+                        if (startTime === "") {
+                            fetchProducts();
+                        } else {
+                            fetchFilteredProducts(startTime);
+                        }
+                    });
+
+                    endTimeFilter.addEventListener("input", () => {
+                        const startTime = startTimeFilter.value;
+                        const endTime = endTimeFilter.value;
+                        if (endTime === "") {
+                            fetchProducts();
+                        } else {
+                            fetchFilteredProductsend(endTime);
+                        }
+                    });
+
+                    // Initial fetch to load all products by default
+                    fetchProducts();
+
+
+
+
+                    // Function to determine the appropriate link based on user login status
+                    const getUserLink = (product) => {
+                        // Replace this with your actual logic to check user session or authentication
+                        var username = sessionStorage.getItem('userName');
+                        if (!username) {
+                            window.location.href = 'login.html'; // Redirect to login page
+                        } else {
+                            return `checkout.html?name=${encodeURIComponent(product.name)}`;
+                        }
+                    };
+                </script>
+            </div>
+        </div>
+    </section>
+    <!-- Shop Section End -->
+
+    <!-- Footer Section Begin -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-7">
+                    <div class="footer__about">
+                        <div class="footer__logo">
+                            <a class="fw-bold text-dark ml-5" style="font-weight: bold" href="./index.html">ABC Laboratories Online
+                                Appointment</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-5">
+                    <div class="footer__widget">
+                        <h6>Quick links</h6>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Blogs</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="footer__widget">
+                        <h6>Account</h6>
+                        <ul>
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">Orders Tracking</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">Wishlist</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8 col-sm-8">
+                    <div class="footer__newslatter">
+                        <h6>NEWSLETTER</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Email" />
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here....." />
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+
+    <!-- Js Plugins -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.nicescroll.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
